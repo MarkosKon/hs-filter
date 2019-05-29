@@ -1,0 +1,8 @@
+{
+  "spellright.language": ["el", "en"],
+  "spellright.documentTypes": ["markdown", "latex", "plaintext"],
+  "cSpell.words": ["hsdeckideas"],
+  "eslint.packageManager": "yarn",
+  "prettier.eslintIntegration": true,
+  "editor.formatOnSave": false
+}

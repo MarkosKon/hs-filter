@@ -1,0 +1,125 @@
+[
+  {
+    "cardClass": ["DRUID"],
+    "cost": 2,
+    "dbfId": 1123,
+    "id": "CS2_017",
+    "name": "Shapeshift",
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power +1 Attack this turn.    +1 Armor.",
+    "type": "HERO_POWER",
+    "extra": ["SMALL_REMOVAL"]
+  },
+  {
+    "cardClass": ["HUNTER"],
+    "collectionText": "Hero Power Deal $2 damage.",
+    "cost": 2,
+    "dbfId": 229,
+    "id": "DS1h_292",
+    "name": "Steady Shot",
+    "playRequirements": {
+      "REQ_MINION_OR_ENEMY_HERO": 0,
+      "REQ_STEADY_SHOT": 0
+    },
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power Deal $2 damage to the enemy hero.",
+    "type": "HERO_POWER",
+    "extra": ["DAMAGE"]
+  },
+  {
+    "cardClass": ["MAGE"],
+    "cost": 2,
+    "dbfId": 807,
+    "id": "CS2_034",
+    "name": "Fireblast",
+    "playRequirements": { "REQ_TARGET_TO_PLAY": 0 },
+    "rarity": "FREE",
+    "set": "CORE",
+    "targetingArrowText": "Deal 1 damage.",
+    "text": "Hero Power Deal $1 damage.",
+    "type": "HERO_POWER",
+    "extra": ["SMALL_REMOVAL"]
+  },
+  {
+    "cardClass": ["PALADIN"],
+    "cost": 2,
+    "dbfId": 472,
+    "id": "CS2_101",
+    "name": "Reinforce",
+    "playRequirements": { "REQ_NUM_MINION_SLOTS": 1 },
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power Summon a 1/1 Silver Hand Recruit.",
+    "type": "HERO_POWER",
+    "extra": ["MIN_GEN"]
+  },
+  {
+    "cardClass": ["PRIEST"],
+    "cost": 2,
+    "dbfId": 479,
+    "id": "CS1h_001",
+    "name": "Lesser Heal",
+    "playRequirements": { "REQ_TARGET_TO_PLAY": 0 },
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power Restore #2 Health.",
+    "type": "HERO_POWER",
+    "extra": ["HEAL"]
+  },
+  {
+    "cardClass": ["ROGUE"],
+    "cost": 2,
+    "attack": 1,
+    "dbfId": 730,
+    "id": "CS2_083b",
+    "name": "Dagger Mastery",
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power Equip a 1/2 Dagger.",
+    "type": "HERO_POWER",
+    "extra": ["TEMPO"]
+  },
+  {
+    "cardClass": ["SHAMAN"],
+    "cost": 2,
+    "dbfId": 687,
+    "entourage": ["CS2_050", "CS2_051", "CS2_052", "NEW1_009"],
+    "id": "CS2_049",
+    "name": "Totemic Call",
+    "playRequirements": {
+      "REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY": 0,
+      "REQ_NUM_MINION_SLOTS": 1
+    },
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power Summon a random Totem.",
+    "type": "HERO_POWER",
+    "extra": ["MIN_GEN"]
+  },
+  {
+    "cardClass": ["WARLOCK"],
+    "cost": 2,
+    "dbfId": 300,
+    "id": "CS2_056",
+    "name": "Life Tap",
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power Draw a card and take $2 damage.",
+    "type": "HERO_POWER",
+    "extra": ["CARD_DRAW"]
+  },
+  {
+    "cardClass": ["WARRIOR"],
+    "cost": 2,
+    "dbfId": 725,
+    "id": "CS2_102",
+    "name": "Armor Up!",
+    "rarity": "FREE",
+    "set": "CORE",
+    "text": "Hero Power Gain 2 Armor.",
+    "type": "HERO_POWER",
+    "extra": ["HEAL"]
+  }
+]
