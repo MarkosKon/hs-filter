@@ -1,10 +1,8 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, useStaticQuery } from 'gatsby';
 
-import { DeckContext } from '../context/deck-context';
+import { DeckContext, initialDeck } from '../context/deck-context';
 import { LiveFilterContext, initialLiveFilterGroup } from '../context/live-filter-context';
-import { initialDeck } from '../context/deck-context';
 import deckReducer from '../ducks/deck';
 import liveFilterReducer from '../ducks/live-filters';
 import { useLocalStorage } from '../hooks/useLocalStorage';
