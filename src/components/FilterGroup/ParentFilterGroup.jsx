@@ -147,6 +147,7 @@ const ParentFilterGroup = ({
 
 ParentFilterGroup.propTypes = {
   filterGroup: PropTypes.shape({
+    name: PropTypes.string,
     type: PropTypes.string,
     operator: PropTypes.string,
     children: PropTypes.array,

@@ -171,9 +171,7 @@ const Cards = ({ cards }) => {
       >
         <Heading fontSize={[2, 2, 5]}>{`${deck.size}/30`}</Heading>
         <Heading fontSize={[2, 2, 5]} mx={[2, 2, 4]}>
-          {searchedCards.length}
-          {' '}
-cards
+          {`${searchedCards.length} cards`}
         </Heading>
         <Autosuggest
           suggestions={searchSuggestions}

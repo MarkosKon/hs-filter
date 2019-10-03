@@ -214,7 +214,10 @@ const GridItem = memo(({
 
 GridItem.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  cardToRender: PropTypes.shape({}).isRequired,
+  cardToRender: PropTypes.shape({
+    name: PropTypes.string,
+    cardClass: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
   openModal: PropTypes.func.isRequired,
   quantity: PropTypes.number,
   image: PropTypes.shape({
