@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import Layout from '../layouts/Layout';
-import SEO from '../components/SEO';
-import { Centered, Heading, Text } from '../components/Primitives';
-import Link from '../components/Link';
+import Layout from "../layouts/Layout";
+import SEO from "../components/SEO";
+import { Centered, Heading, Text } from "../components/Primitives";
+import Link from "../components/Link";
 
 const NotFoundPage = () => (
   <Layout>

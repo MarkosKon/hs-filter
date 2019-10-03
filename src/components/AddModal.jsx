@@ -1,25 +1,24 @@
-import React, { useRef, useEffect, useContext } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
-import styled from 'styled-components';
-import Modal from 'react-modal';
-import ReactSelect from 'react-select';
-import { boxShadow } from 'styled-system';
-import createId from 'uuid/v4';
-import { Card as BaseCard } from 'rebass';
-import { getLuminance, lighten, darken } from 'polished';
+import React, { useRef, useEffect, useContext } from "react";
+import { graphql, useStaticQuery } from "gatsby";
+import styled from "styled-components";
+import Modal from "react-modal";
+import ReactSelect from "react-select";
+import { boxShadow } from "styled-system";
+import createId from "uuid/v4";
+import { Card as BaseCard } from "rebass";
+import { getLuminance, lighten, darken } from "polished";
 
-import {
-  Button, Box, Heading, TopRight, Flex, Text,
-} from './Primitives';
-import { FaTimes } from './Icons';
-import { add, addGroup } from '../ducks/live-filters';
-import { LiveFilterContext } from '../context/live-filter-context';
-import DIYFilterForm from './DIYFilterForm';
-import PredefinedFilters from './PredefinedFilters';
-import { selectStyles } from '../layouts/react-select-styles';
-import { predefinedFilterGroups } from '../data/predefined-filter-groups';
+import { Button, Box, Heading, TopRight, Flex, Text } from "./Primitives";
+import { FaTimes } from "./Icons";
+import { add, addGroup } from "../ducks/live-filters";
+import { LiveFilterContext } from "../context/live-filter-context";
+import DIYFilterForm from "./DIYFilterForm";
+import PredefinedFilters from "./PredefinedFilters";
+import { selectStyles } from "../layouts/react-select-styles";
+import { predefinedFilterGroups } from "../data/predefined-filter-groups";
 
-const darkenOrLighten = c => (getLuminance(c) < 0.06 ? lighten(0.15, c) : darken(0.07, c));
+const darkenOrLighten = c =>
+  getLuminance(c) < 0.06 ? lighten(0.15, c) : darken(0.07, c);
 
 const Card = styled(BaseCard)`
   cursor: pointer;
@@ -31,19 +30,19 @@ const Card = styled(BaseCard)`
 
 const modalStyles = {
   content: {
-    top: '0',
-    left: '0',
-    right: '0',
-    bottom: '0',
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
     border: null,
-    background: 'transparent',
-    padding: '0',
+    background: "transparent",
+    padding: "0"
   },
   overlay: {
-    overflow: 'auto',
+    overflow: "auto",
     zIndex: 10, // due to tooltip
-    backgroundColor: 'rgba(0, 0, 0, 0.58)',
-  },
+    backgroundColor: "rgba(0, 0, 0, 0.58)"
+  }
 };
 
 const Container = styled(Box)`
@@ -52,12 +51,12 @@ const Container = styled(Box)`
   border-radius: 4px;
 `;
 
-Modal.setAppElement('#___gatsby');
+Modal.setAppElement("#___gatsby");
 
-const AddModal = (props) => {
+const AddModal = props => {
   const { modalInitiator, onRequestClose } = props;
   const {
-    liveFilterGroup: { dispatch },
+    liveFilterGroup: { dispatch }
   } = useContext(LiveFilterContext);
 
   // eslint-disable-next-line no-use-before-define
@@ -72,7 +71,7 @@ const AddModal = (props) => {
     costs,
     ratings,
     types,
-    extras,
+    extras
   } = data.allJsonJson.edges[0].node;
 
   const predefinedFilters = [
@@ -85,7 +84,7 @@ const AddModal = (props) => {
     ...costs,
     ...ratings,
     ...types,
-    ...extras,
+    ...extras
   ];
   const groups = [
     heroes,
@@ -97,17 +96,17 @@ const AddModal = (props) => {
     costs,
     ratings,
     types,
-    extras,
+    extras
   ];
 
   const predefinedFilterOptions = useRef();
   useEffect(() => {
-    predefinedFilterOptions.current = predefinedFilters.map((object) => {
+    predefinedFilterOptions.current = predefinedFilters.map(object => {
       const { field, operation, value } = object;
       return {
         label: `${field} ${operation} ${value}`,
         value,
-        object,
+        object
       };
     });
   }, [predefinedFilters]);
@@ -119,9 +118,21 @@ const AddModal = (props) => {
       closeTimeoutMS={300}
       contentLabel="Add filter or filtergroups"
     >
-      <Container bg="gray" color="white" my={4} mx={[2, 4]} py={6} px={[3, 4]} boxShadow="extreme">
+      <Container
+        bg="gray"
+        color="white"
+        my={4}
+        mx={[2, 4]}
+        py={6}
+        px={[3, 4]}
+        boxShadow="extreme"
+      >
         <TopRight>
-          <Button variant="transparent" aria-label="close modal" onClick={onRequestClose}>
+          <Button
+            variant="transparent"
+            aria-label="close modal"
+            onClick={onRequestClose}
+          >
             <FaTimes size="2x" />
           </Button>
         </TopRight>
@@ -138,15 +149,15 @@ const AddModal = (props) => {
               onClick={() => {
                 const toAdd = {
                   id: createId(),
-                  type: 'GROUP',
-                  operator: 'AND',
-                  children: [],
+                  type: "GROUP",
+                  operator: "AND",
+                  children: []
                 };
                 dispatch(
                   add({
                     filterGroup: modalInitiator,
-                    thingToAdd: toAdd,
-                  }),
+                    thingToAdd: toAdd
+                  })
                 );
                 onRequestClose();
               }}
@@ -169,14 +180,14 @@ const AddModal = (props) => {
                     dispatch(
                       addGroup({
                         filterGroup: modalInitiator,
-                        thingToAdd: filterGroup,
-                      }),
+                        thingToAdd: filterGroup
+                      })
                     );
                     onRequestClose();
                   }}
                 >
                   <Card
-                    fontSize={[1, '18px']}
+                    fontSize={[1, "18px"]}
                     p={3}
                     boxShadow="large"
                     bg="#FFCAB1"
@@ -196,11 +207,11 @@ const AddModal = (props) => {
             <DIYFilterForm
               handleSubmit={({ property, operation, filterValue }) => {
                 const thingToAdd = {
-                  type: 'FILTER',
+                  type: "FILTER",
                   id: createId(),
                   field: property,
                   operation,
-                  value: filterValue,
+                  value: filterValue
                 };
                 dispatch(add({ filterGroup: modalInitiator, thingToAdd }));
                 onRequestClose();
@@ -222,7 +233,9 @@ const AddModal = (props) => {
                 styles={selectStyles}
                 options={predefinedFilterOptions.current}
                 onChange={({ object }) => {
-                  dispatch(add({ filterGroup: modalInitiator, thingToAdd: object }));
+                  dispatch(
+                    add({ filterGroup: modalInitiator, thingToAdd: object })
+                  );
                   onRequestClose();
                 }}
               />
@@ -240,7 +253,7 @@ const AddModal = (props) => {
 };
 
 AddModal.propTypes = {
-  ...Modal.propTypes,
+  ...Modal.propTypes
 };
 
 const addModalQuery = graphql`

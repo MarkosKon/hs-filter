@@ -1,16 +1,16 @@
 /* eslint-disable no-param-reassign */
-import cloneDeep from 'lodash.clonedeep';
-import createId from 'uuid/v4';
+import cloneDeep from "lodash.clonedeep";
+import createId from "uuid/v4";
 
-import { idEquals, isGroup } from '../utils/compare';
+import { idEquals, isGroup } from "../utils/compare";
 
 // Constants
-const ADD = 'hs-filter/live-filters/ADD';
-const ADD_GROUP = 'hs-filter/live-filters/ADD_GROUP';
-const UPDATE = 'hs-filter/live-filters/UPDATE';
-const REMOVE = 'hs-filter/live-filters/REMOVE';
-const TOGGLE_OPERATOR = 'hs-filter/live-filters/TOGGLE_OPERATOR';
-const REPLACE = 'hs-filter/live-filters/REPLACE';
+const ADD = "hs-filter/live-filters/ADD";
+const ADD_GROUP = "hs-filter/live-filters/ADD_GROUP";
+const UPDATE = "hs-filter/live-filters/UPDATE";
+const REMOVE = "hs-filter/live-filters/REMOVE";
+const TOGGLE_OPERATOR = "hs-filter/live-filters/TOGGLE_OPERATOR";
+const REPLACE = "hs-filter/live-filters/REPLACE";
 
 // Action Creators
 export const add = payload => ({ type: ADD, payload });
@@ -24,7 +24,7 @@ export const replace = payload => ({ type: REPLACE, payload });
 // shallow copy, bugs everywhere if you use this ;)
 // const getCopy = obj => Object.assign({}, obj);
 const getCopy = obj => cloneDeep(obj);
-const toggle = ({ operator }) => (operator === 'AND' ? 'OR' : 'AND');
+const toggle = ({ operator }) => (operator === "AND" ? "OR" : "AND");
 
 // Reducer
 export default (state = {}, action = {}) => {
@@ -34,9 +34,10 @@ export default (state = {}, action = {}) => {
   if (type === ADD) {
     const { filterGroup, thingToAdd } = payload;
     const hasThatFilterGroupId = idEquals(filterGroup.id);
-    const addNewChild = (child) => {
+    const addNewChild = child => {
       if (isGroup(child)) {
-        if (hasThatFilterGroupId(child)) child.children = child.children.concat(thingToAdd);
+        if (hasThatFilterGroupId(child))
+          child.children = child.children.concat(thingToAdd);
         else child.children.forEach(addNewChild);
       }
     };
@@ -48,14 +49,15 @@ export default (state = {}, action = {}) => {
     const { filterGroup, thingToAdd } = payload;
     const thingToAddCopy = cloneDeep(thingToAdd);
 
-    const resetIds = (child) => {
+    const resetIds = child => {
       child.id = createId();
       if (isGroup(child)) child.children.forEach(resetIds);
     };
     const hasThatFilterGroupId = idEquals(filterGroup.id);
-    const addNewChild = (child) => {
+    const addNewChild = child => {
       if (isGroup(child)) {
-        if (hasThatFilterGroupId(child)) child.children = child.children.concat(thingToAddCopy);
+        if (hasThatFilterGroupId(child))
+          child.children = child.children.concat(thingToAddCopy);
         else child.children.forEach(addNewChild);
       }
     };
@@ -92,7 +94,7 @@ export default (state = {}, action = {}) => {
   if (type === TOGGLE_OPERATOR) {
     const { filterGroup } = payload;
     const hasThatFilterGroupId = idEquals(filterGroup.id);
-    const toggleFilterGroup = (child) => {
+    const toggleFilterGroup = child => {
       if (isGroup(child)) {
         if (hasThatFilterGroupId(child)) child.operator = toggle(child);
         else child.children.forEach(toggleFilterGroup);

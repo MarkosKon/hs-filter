@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
-import PropTypes from 'prop-types';
-import ReactSelect from 'react-select';
-import styled from 'styled-components';
+import React, { useState, useMemo } from "react";
+import { graphql, useStaticQuery } from "gatsby";
+import PropTypes from "prop-types";
+import ReactSelect from "react-select";
+import styled from "styled-components";
 
-import { Flex } from './Primitives';
-import { selectStyles } from '../layouts/react-select-styles';
+import { Flex } from "./Primitives";
+import { selectStyles } from "../layouts/react-select-styles";
 
 const Container = styled(Flex)`
   & > * {
@@ -26,7 +26,7 @@ const TextInput = styled.input`
 
 const toOption = string => ({
   label: string,
-  value: string,
+  value: string
 });
 
 const DIYFilterForm = ({ handleSubmit, initialValues, children }) => {
@@ -60,13 +60,13 @@ const DIYFilterForm = ({ handleSubmit, initialValues, children }) => {
     return [cardProperties.map(toOption), operations.map(toOption)];
   }, [operations, cardProperties]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { value } = e.target;
     const float = parseFloat(value);
     // Maybe just compare with typeof in the future?
     if (Number.isNaN(float)) {
-      if (value === 'true') setFilterValue(true);
-      else if (value === 'false') setFilterValue(false);
+      if (value === "true") setFilterValue(true);
+      else if (value === "false") setFilterValue(false);
       else setFilterValue(value);
     } else setFilterValue(float);
   };
@@ -77,9 +77,13 @@ const DIYFilterForm = ({ handleSubmit, initialValues, children }) => {
       flexWrap="wrap"
       alignItems="center"
       color="black"
-      onSubmit={(e) => {
+      onSubmit={e => {
         e.preventDefault();
-        handleSubmit({ property: property.value, operation: operation.value, filterValue });
+        handleSubmit({
+          property: property.value,
+          operation: operation.value,
+          filterValue
+        });
       }}
     >
       <ReactSelect
@@ -118,16 +122,20 @@ DIYFilterForm.propTypes = {
   initialValues: PropTypes.shape({
     property: PropTypes.string,
     operation: PropTypes.string,
-    filterValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  }),
+    filterValue: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool
+    ])
+  })
 };
 
 DIYFilterForm.defaultProps = {
   initialValues: {
-    property: 'race',
-    operation: 'equals',
-    filterValue: '',
-  },
+    property: "race",
+    operation: "equals",
+    filterValue: ""
+  }
 };
 
 export default DIYFilterForm;

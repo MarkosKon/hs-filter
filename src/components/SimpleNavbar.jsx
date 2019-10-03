@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import Link from './Link';
-import { Flex, Box, Text } from './Primitives';
+import Link from "./Link";
+import { Flex, Box, Text } from "./Primitives";
 
 const List = styled(Flex)`
   list-style: none;

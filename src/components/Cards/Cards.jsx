@@ -1,21 +1,17 @@
-import React, {
-  useState, useEffect, useRef, useContext,
-} from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { FixedSizeGrid as Grid } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import memoize from 'memoize-one';
-import { boxShadow } from 'styled-system';
-import { toast } from 'react-toastify';
-import Autosuggest from 'react-autosuggest';
+import React, { useState, useEffect, useRef, useContext } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { FixedSizeGrid as Grid } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
+import memoize from "memoize-one";
+import { boxShadow } from "styled-system";
+import { toast } from "react-toastify";
+import Autosuggest from "react-autosuggest";
 
-import {
-  Flex, Box, Heading, Centered, Text,
-} from '../Primitives';
-import { GridItemWithDeck } from './GridItem';
-import { DeckContext } from '../../context/deck-context';
-import CardDetailsModal from '../Modals/CardDetailsModal';
+import { Flex, Box, Heading, Centered, Text } from "../Primitives";
+import { GridItemWithDeck } from "./GridItem";
+import { DeckContext } from "../../context/deck-context";
+import CardDetailsModal from "../Modals/CardDetailsModal";
 
 const Container = styled(Box)`
   position: relative;
@@ -41,41 +37,41 @@ const CenteredGrid = styled(Grid)`
 
 // Autosuggest stuff
 const suggestions = [
-  { name: 'cost is 0' },
-  { name: 'cost is 1' },
-  { name: 'cost is 2' },
-  { name: 'cost is 3' },
-  { name: 'cost is 4' },
-  { name: 'cost is 5' },
-  { name: 'cost is 6' },
-  { name: 'cost is 7' },
-  { name: 'cost is 8' },
-  { name: 'cost is 9' },
-  { name: 'cost is 10' },
-  { name: 'class is NEUTRAL' },
-  { name: 'class is DRUID' },
-  { name: 'class is HUNTER' },
-  { name: 'class is MAGE' },
-  { name: 'class is PALADIN' },
-  { name: 'class is PRIEST' },
-  { name: 'class is ROGUE' },
-  { name: 'class is SHAMAN' },
-  { name: 'class is WARLOCK' },
-  { name: 'class is WARRIOR' },
-  { name: 'set is 0' },
-  { name: 'set is 12' },
-  { name: 'set is 13' },
-  { name: 'set is 14' },
-  { name: 'set is 15' },
-  { name: 'set is 98' },
-  { name: 'set is 99' },
-  { name: 'type is HERO' },
-  { name: 'type is MINION' },
-  { name: 'type is SPELL' },
-  { name: 'type is WEAPON' },
+  { name: "cost is 0" },
+  { name: "cost is 1" },
+  { name: "cost is 2" },
+  { name: "cost is 3" },
+  { name: "cost is 4" },
+  { name: "cost is 5" },
+  { name: "cost is 6" },
+  { name: "cost is 7" },
+  { name: "cost is 8" },
+  { name: "cost is 9" },
+  { name: "cost is 10" },
+  { name: "class is NEUTRAL" },
+  { name: "class is DRUID" },
+  { name: "class is HUNTER" },
+  { name: "class is MAGE" },
+  { name: "class is PALADIN" },
+  { name: "class is PRIEST" },
+  { name: "class is ROGUE" },
+  { name: "class is SHAMAN" },
+  { name: "class is WARLOCK" },
+  { name: "class is WARRIOR" },
+  { name: "set is 0" },
+  { name: "set is 12" },
+  { name: "set is 13" },
+  { name: "set is 14" },
+  { name: "set is 15" },
+  { name: "set is 98" },
+  { name: "set is 99" },
+  { name: "type is HERO" },
+  { name: "type is MINION" },
+  { name: "type is SPELL" },
+  { name: "type is WEAPON" }
 ];
 
-const getSuggestions = (value) => {
+const getSuggestions = value => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
 
@@ -89,19 +85,19 @@ const getSuggestionValue = suggestion => suggestion.name;
 const renderSuggestion = suggestion => <div>{suggestion.name}</div>;
 
 const searchByCode = cards => (field, value) => {
-  if (field === 'cost') {
+  if (field === "cost") {
     return cards.filter(card => card.cost === Number(value));
   }
-  if (field === 'set') {
+  if (field === "set") {
     return cards.filter(card => card.set === Number(value));
   }
-  if (field === 'class') {
+  if (field === "class") {
     return cards.filter(card => value.toUpperCase().includes(card.cardClass));
   }
-  if (field === 'type') {
+  if (field === "type") {
     return cards.filter(card => value.toUpperCase().includes(card.type));
   }
-  throw Error('Unsupported search');
+  throw Error("Unsupported search");
 };
 
 // Some memoization to avoid renders when itemData change.
@@ -110,12 +106,12 @@ const createOpenModal = memoize(func => card => func({ open: true, card }));
 const createItemData = memoize((columnCount, searchedCards, openModal) => ({
   columnCount,
   searchedCards,
-  openModal,
+  openModal
 }));
 
 const Cards = ({ cards }) => {
   const [searchedCards, setSearchedCards] = useState(cards);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [searchSuggestions, setSearchSuggestions] = useState([]);
 
   const [modalInfo, setModalInfo] = useState({ open: false, card: null });
@@ -124,11 +120,11 @@ const Cards = ({ cards }) => {
   const { deck } = useContext(DeckContext);
 
   useEffect(() => {
-    setSearchValue('');
+    setSearchValue("");
     setSearchedCards(cards);
   }, [cards]);
 
-  const handleSearch = (newValue) => {
+  const handleSearch = newValue => {
     const value = newValue.toLowerCase();
     if (!value) {
       setSearchedCards(cards);
@@ -147,10 +143,14 @@ const Cards = ({ cards }) => {
       }
     } else {
       const filterByName = card => card.name.toLowerCase().includes(value);
-      const filterByText = card => card.text && card.text.toLowerCase().includes(value);
-      const filterByRace = card => card.race && card.race.toLowerCase().includes(value);
+      const filterByText = card =>
+        card.text && card.text.toLowerCase().includes(value);
+      const filterByRace = card =>
+        card.race && card.race.toLowerCase().includes(value);
       setSearchedCards(
-        cards.filter(card => filterByName(card) || filterByText(card) || filterByRace(card)),
+        cards.filter(
+          card => filterByName(card) || filterByText(card) || filterByRace(card)
+        )
       );
     }
   };
@@ -184,17 +184,17 @@ const Cards = ({ cards }) => {
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
           inputProps={{
-            'aria-label': 'Search cards',
-            placeholder: 'Search...',
+            "aria-label": "Search cards",
+            placeholder: "Search...",
             value: searchValue,
             onChange: (event, { newValue }) => {
               setSearchValue(newValue);
               handleSearch(newValue);
-            },
+            }
           }}
         />
       </SearchContainer>
-      <Box height="100vh" style={{ overflowX: 'hidden' }}>
+      <Box height="100vh" style={{ overflowX: "hidden" }}>
         {searchedCards.length > 0 ? (
           <AutoSizer defaultWidth={1920} defaultHeight={1080}>
             {({ width, height }) => {
@@ -205,7 +205,11 @@ const Cards = ({ cards }) => {
               const rowCount = Math.ceil(searchedCards.length / columnCount);
 
               const openModal = createOpenModal(setModalInfo);
-              const itemData = createItemData(columnCount, searchedCards, openModal);
+              const itemData = createItemData(
+                columnCount,
+                searchedCards,
+                openModal
+              );
               return (
                 <CenteredGrid
                   columnWidth={cardWidth}
@@ -232,7 +236,7 @@ const Cards = ({ cards }) => {
 };
 
 Cards.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cards: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default Cards;

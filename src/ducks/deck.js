@@ -1,17 +1,21 @@
-import sortBy from 'lodash.sortby';
+import sortBy from "lodash.sortby";
 
 import {
-  getSize, getFormat, getClass, cardHasName, isLegendary,
-} from '../utils/card';
-import { inDeck } from '../utils/deck';
-import { initialDeck } from '../context/deck-context';
+  getSize,
+  getFormat,
+  getClass,
+  cardHasName,
+  isLegendary
+} from "../utils/card";
+import { inDeck } from "../utils/deck";
+import { initialDeck } from "../context/deck-context";
 
 // Constants
-const ADD_CARD = 'hs-filters/deck/ADD_CARD';
-const REMOVE_CARD = 'hs-filters/deck/REMOVE_CARD';
-const CLEAR = 'hs-filters/deck/CLEAR';
-const REPLACE = 'hs-filters/deck/REPLACE';
-const TOGGLE_IGNORE_SIZE = 'hs-filters/deck/TOGGLE_IGNORE_SIZE';
+const ADD_CARD = "hs-filters/deck/ADD_CARD";
+const REMOVE_CARD = "hs-filters/deck/REMOVE_CARD";
+const CLEAR = "hs-filters/deck/CLEAR";
+const REPLACE = "hs-filters/deck/REPLACE";
+const TOGGLE_IGNORE_SIZE = "hs-filters/deck/TOGGLE_IGNORE_SIZE";
 
 // Action Creators
 export const addCard = payload => ({ type: ADD_CARD, payload });
@@ -28,19 +32,20 @@ export default (state = {}, action = {}) => {
   if (type === ADD_CARD) {
     const { card } = payload;
     const cards = inDeck(state, card)
-      ? state.cards.map((c) => {
-        if (cardHasName(card.name)(c)) return { ...c, quantity: isLegendary(c) };
-        return c;
-      })
+      ? state.cards.map(c => {
+          if (cardHasName(card.name)(c))
+            return { ...c, quantity: isLegendary(c) };
+          return c;
+        })
       : state.cards.concat([{ card, quantity: 1 }]);
     const classes = getClass(cards);
     return {
       ...state,
-      name: '',
-      cards: sortBy(cards, ['card.cost', 'card.name']),
+      name: "",
+      cards: sortBy(cards, ["card.cost", "card.name"]),
       format: getFormat(cards),
-      hero: classes.length === 0 ? 'ANY' : classes[0],
-      size: getSize(cards),
+      hero: classes.length === 0 ? "ANY" : classes[0],
+      size: getSize(cards)
     };
   }
   // REMOVE_CARD
@@ -57,11 +62,11 @@ export default (state = {}, action = {}) => {
     const classes = getClass(cards);
     return {
       ...state,
-      name: '',
+      name: "",
       cards,
       format: getFormat(cards),
-      hero: classes.length === 0 ? 'ANY' : classes[0],
-      size: getSize(cards),
+      hero: classes.length === 0 ? "ANY" : classes[0],
+      size: getSize(cards)
     };
   }
   // CLEAR

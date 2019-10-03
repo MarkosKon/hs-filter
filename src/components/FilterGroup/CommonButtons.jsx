@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Button } from '../Primitives';
-import { FaPlus } from '../Icons';
+import { Button } from "../Primitives";
+import { FaPlus } from "../Icons";
 
 const CommonButton = ({ openModal, filterGroup }) => (
   <>
@@ -25,8 +25,8 @@ CommonButton.propTypes = {
   filterGroup: PropTypes.shape({
     type: PropTypes.string,
     operator: PropTypes.string,
-    children: PropTypes.array,
-  }).isRequired,
+    children: PropTypes.array
+  }).isRequired
 };
 
 export default CommonButton;

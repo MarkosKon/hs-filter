@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { graphql } from "gatsby";
 
-import Layout from '../layouts/Layout';
-import SEO from '../components/SEO';
-import { Box } from '../components/Primitives';
+import Layout from "../layouts/Layout";
+import SEO from "../components/SEO";
+import { Box } from "../components/Primitives";
 
 const Content = styled(Box)`
   h1 {
@@ -38,14 +38,14 @@ const Content = styled(Box)`
 const MarkdownPage = ({ data }) => {
   const {
     html,
-    frontmatter: { title, description },
+    frontmatter: { title, description }
   } = data.markdownRemark;
   return (
     <Layout>
       <SEO title={title} description={description} />
       <Box minHeight="calc(100vh - 59px)" bg="gray" color="white">
         <Content
-          style={{ maxWidth: '900px' }}
+          style={{ maxWidth: "900px" }}
           mx="auto"
           px={[3, 4]}
           py={5}
@@ -62,10 +62,10 @@ MarkdownPage.propTypes = {
       html: PropTypes.string.isRequired,
       frontmatter: PropTypes.shape({
         title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+        description: PropTypes.string.isRequired
+      }).isRequired
+    }).isRequired
+  }).isRequired
 };
 
 export default MarkdownPage;

@@ -1,23 +1,29 @@
-import React, { useReducer } from 'react';
-import PropTypes from 'prop-types';
+import React, { useReducer } from "react";
+import PropTypes from "prop-types";
 
-import { DeckContext, initialDeck } from '../context/deck-context';
-import { LiveFilterContext, initialLiveFilterGroup } from '../context/live-filter-context';
-import deckReducer from '../ducks/deck';
-import liveFilterReducer from '../ducks/live-filters';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { DeckContext, initialDeck } from "../context/deck-context";
+import {
+  LiveFilterContext,
+  initialLiveFilterGroup
+} from "../context/live-filter-context";
+import deckReducer from "../ducks/deck";
+import liveFilterReducer from "../ducks/live-filters";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const AppContainer = ({ children }) => {
   // Live filter group reducer + saved filter groups in local storage.
   const [liveFilterGroup, liveFilterGroupDispatch] = useReducer(
     liveFilterReducer,
-    initialLiveFilterGroup,
+    initialLiveFilterGroup
   );
-  const [savedFilterGroups, setSavedFilterGroups] = useLocalStorage('filterGroups', []);
+  const [savedFilterGroups, setSavedFilterGroups] = useLocalStorage(
+    "filterGroups",
+    []
+  );
 
   // Current deck reducer + saved decks in local storage.
   const [deck, deckDispatch] = useReducer(deckReducer, initialDeck);
-  const [decks, updateDecks] = useLocalStorage('decks', []);
+  const [decks, updateDecks] = useLocalStorage("decks", []);
   return (
     <LiveFilterContext.Provider
       value={{
@@ -25,8 +31,8 @@ const AppContainer = ({ children }) => {
           liveFilterGroup,
           savedFilterGroups,
           setSavedFilterGroups,
-          dispatch: liveFilterGroupDispatch,
-        },
+          dispatch: liveFilterGroupDispatch
+        }
       }}
     >
       <DeckContext.Provider
@@ -34,7 +40,7 @@ const AppContainer = ({ children }) => {
           deck,
           dispatch: deckDispatch,
           decks,
-          updateDecks,
+          updateDecks
         }}
       >
         {children}
@@ -44,7 +50,10 @@ const AppContainer = ({ children }) => {
 };
 
 AppContainer.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node)
+  ]).isRequired
 };
 
 export default AppContainer;

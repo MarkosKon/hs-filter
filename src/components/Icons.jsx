@@ -2,10 +2,10 @@
 // This is not necessary, we could use the library from core
 // https://github.com/FortAwesome/react-fontawesome#build-a-library-to-reference-icons-throughout-your-app-more-conveniently
 
-import React from 'react';
-import styled from 'styled-components';
-import { space } from 'styled-system';
-import { FontAwesomeIcon as Base } from '@fortawesome/react-fontawesome';
+import React from "react";
+import styled from "styled-components";
+import { space } from "styled-system";
+import { FontAwesomeIcon as Base } from "@fortawesome/react-fontawesome";
 import {
   faTimes,
   faPlus,
@@ -19,8 +19,8 @@ import {
   faBroom,
   faEllipsisV,
   faSearch,
-  faMinus,
-} from '@fortawesome/free-solid-svg-icons';
+  faMinus
+} from "@fortawesome/free-solid-svg-icons";
 
 const FontAwesomeIcon = styled(Base)`
   ${space}
@@ -53,5 +53,5 @@ export {
   FaBroom,
   FaEllipsisV,
   FaSearch,
-  FaMinus,
+  FaMinus
 };

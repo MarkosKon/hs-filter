@@ -1,40 +1,36 @@
-import React, {
-  useState, useContext, useRef, useMemo,
-} from 'react';
-import styled from 'styled-components';
-import { boxShadow } from 'styled-system';
-import Modal from 'react-modal';
-import createId from 'uuid/v4';
-import sortBy from 'lodash.sortby';
-import { toast } from 'react-toastify';
-import { FixedSizeList } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
+import React, { useState, useContext, useRef, useMemo } from "react";
+import styled from "styled-components";
+import { boxShadow } from "styled-system";
+import Modal from "react-modal";
+import createId from "uuid/v4";
+import sortBy from "lodash.sortby";
+import { toast } from "react-toastify";
+import { FixedSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
-import {
-  Button, Flex, Box, Heading, Text, TopRight,
-} from './Primitives';
-import { FaTimes, FaSave, FaTrash } from './Icons';
-import { replace } from '../ducks/live-filters';
-import { predefinedPresets } from '../data/predefined-presets';
-import { LiveFilterContext } from '../context/live-filter-context';
+import { Button, Flex, Box, Heading, Text, TopRight } from "./Primitives";
+import { FaTimes, FaSave, FaTrash } from "./Icons";
+import { replace } from "../ducks/live-filters";
+import { predefinedPresets } from "../data/predefined-presets";
+import { LiveFilterContext } from "../context/live-filter-context";
 
-const sortedPresets = sortBy(predefinedPresets, ['name']);
+const sortedPresets = sortBy(predefinedPresets, ["name"]);
 
 const modalStyles = {
   content: {
-    top: '0',
-    left: '0',
-    right: '0',
-    bottom: '0',
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
     border: null,
-    background: 'transparent',
-    padding: '0',
+    background: "transparent",
+    padding: "0"
   },
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.58)',
-    overflow: 'auto',
-    zIndex: 10, // due to tooltip
-  },
+    backgroundColor: "rgba(0, 0, 0, 0.58)",
+    overflow: "auto",
+    zIndex: 10 // due to tooltip
+  }
 };
 
 const Container = styled(Box)`
@@ -61,20 +57,25 @@ const ItemName = styled(Button)`
   }
 `;
 
-Modal.setAppElement('#___gatsby');
-const SaveLoadPresetModal = (props) => {
+Modal.setAppElement("#___gatsby");
+const SaveLoadPresetModal = props => {
   const { onRequestClose } = props;
-  const [filterGroupName, setFilterGroupName] = useState('');
+  const [filterGroupName, setFilterGroupName] = useState("");
   const filterGroupLoadedToast = useRef();
   const {
     liveFilterGroup: {
-      liveFilterGroup, savedFilterGroups, setSavedFilterGroups, dispatch,
-    },
+      liveFilterGroup,
+      savedFilterGroups,
+      setSavedFilterGroups,
+      dispatch
+    }
   } = useContext(LiveFilterContext);
 
   // https://reactjs.org/docs/hooks-faq.html#how-to-memoize-calculations
   // From what I read this is fair use case for the useMemo hook.
-  const sorted = useMemo(() => sortBy(savedFilterGroups, ['name']), [savedFilterGroups]);
+  const sorted = useMemo(() => sortBy(savedFilterGroups, ["name"]), [
+    savedFilterGroups
+  ]);
 
   return (
     <Modal
@@ -84,9 +85,21 @@ const SaveLoadPresetModal = (props) => {
       closeTimeoutMS={300}
       contentLabel="Save or load filter groups"
     >
-      <Container bg="gray" color="white" my={4} mx={[2, 4]} py={6} px={[3, 4]} boxShadow="extreme">
+      <Container
+        bg="gray"
+        color="white"
+        my={4}
+        mx={[2, 4]}
+        py={6}
+        px={[3, 4]}
+        boxShadow="extreme"
+      >
         <TopRight>
-          <Button variant="transparent" aria-label="close modal" onClick={onRequestClose}>
+          <Button
+            variant="transparent"
+            aria-label="close modal"
+            onClick={onRequestClose}
+          >
             <FaTimes size="2x" />
           </Button>
         </TopRight>
@@ -98,15 +111,15 @@ const SaveLoadPresetModal = (props) => {
           <Flex
             as="form"
             flexWrap="wrap"
-            onSubmit={(e) => {
+            onSubmit={e => {
               e.preventDefault();
               setSavedFilterGroups([
                 ...savedFilterGroups,
-                { ...liveFilterGroup, name: filterGroupName, id: createId() },
+                { ...liveFilterGroup, name: filterGroupName, id: createId() }
               ]);
               toast.success(`😎 Preset "${filterGroupName}" saved!`, {
                 autoClose: 1200,
-                position: toast.POSITION.TOP_LEFT,
+                position: toast.POSITION.TOP_LEFT
               });
             }}
           >
@@ -139,7 +152,12 @@ const SaveLoadPresetModal = (props) => {
         </Box>
         <Box mb={5}>
           <Heading mb={4}>Load from saved</Heading>
-          <Box mb={5} minHeight={sorted.length * 52 > 500 ? '500px' : `${sorted.length * 52}px`}>
+          <Box
+            mb={5}
+            minHeight={
+              sorted.length * 52 > 500 ? "500px" : `${sorted.length * 52}px`
+            }
+          >
             {sorted && sorted.length > 0 ? (
               <AutoSizer>
                 {({ width, height }) => (
@@ -150,19 +168,24 @@ const SaveLoadPresetModal = (props) => {
                     width={width}
                   >
                     {({ index, style }) => (
-                      <Item key={sorted[index].id} style={{ backgroundColor: '#cec7c5', ...style }}>
+                      <Item
+                        key={sorted[index].id}
+                        style={{ backgroundColor: "#cec7c5", ...style }}
+                      >
                         <ItemName
                           variant="transparent"
                           aria-label="Open filter group"
                           onClick={() => {
                             dispatch(replace(sorted[index]));
-                            if (!toast.isActive(filterGroupLoadedToast.current)) {
+                            if (
+                              !toast.isActive(filterGroupLoadedToast.current)
+                            ) {
                               filterGroupLoadedToast.current = toast.success(
                                 `😎 Filter group "${sorted[index].name}" loaded!`,
                                 {
                                   autoClose: 1200,
-                                  position: toast.POSITION.TOP_LEFT,
-                                },
+                                  position: toast.POSITION.TOP_LEFT
+                                }
                               );
                             }
                             onRequestClose();
@@ -175,16 +198,21 @@ const SaveLoadPresetModal = (props) => {
                           aria-label={`delete ${sorted[index].name}`}
                           data-microtip-position="left"
                           role="tooltip"
-                          style={{ display: 'block', borderRadius: 0 }}
+                          style={{ display: "block", borderRadius: 0 }}
                           p={4}
                           onClick={() => {
                             setSavedFilterGroups(
-                              savedFilterGroups.filter(fg => fg.id !== sorted[index].id),
+                              savedFilterGroups.filter(
+                                fg => fg.id !== sorted[index].id
+                              )
                             );
-                            toast.success(`😎 Filter group "${sorted[index].name}" deleted!`, {
-                              autoClose: 1200,
-                              position: toast.POSITION.TOP_LEFT,
-                            });
+                            toast.success(
+                              `😎 Filter group "${sorted[index].name}" deleted!`,
+                              {
+                                autoClose: 1200,
+                                position: toast.POSITION.TOP_LEFT
+                              }
+                            );
                           }}
                         >
                           <FaTrash />
@@ -208,7 +236,7 @@ const SaveLoadPresetModal = (props) => {
                 itemCount={sortedPresets.length}
                 itemSize={52}
                 width={width}
-                style={{ backgroundColor: '#cec7c5' }}
+                style={{ backgroundColor: "#cec7c5" }}
               >
                 {({ index, style }) => (
                   <Item style={style} key={sortedPresets[index].id}>
@@ -222,8 +250,8 @@ const SaveLoadPresetModal = (props) => {
                             `😎 "${sortedPresets[index].name}" loaded!`,
                             {
                               autoClose: 1200,
-                              position: toast.POSITION.TOP_LEFT,
-                            },
+                              position: toast.POSITION.TOP_LEFT
+                            }
                           );
                         }
                         onRequestClose();
@@ -243,7 +271,7 @@ const SaveLoadPresetModal = (props) => {
 };
 
 SaveLoadPresetModal.propTypes = {
-  ...Modal.propTypes,
+  ...Modal.propTypes
 };
 
 export default SaveLoadPresetModal;

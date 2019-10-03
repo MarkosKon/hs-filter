@@ -1,32 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { boxShadow } from 'styled-system';
-import Modal from 'react-modal';
-import { Card } from 'rebass';
-import Image from 'gatsby-image';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { boxShadow } from "styled-system";
+import Modal from "react-modal";
+import { Card } from "rebass";
+import Image from "gatsby-image";
 
-import {
-  Button, Box, Heading, TopRight, Text, Flex,
-} from '../Primitives';
-import { FaTimes } from '../Icons';
-import Debug from '../Debug';
+import { Button, Box, Heading, TopRight, Text, Flex } from "../Primitives";
+import { FaTimes } from "../Icons";
+import Debug from "../Debug";
 
 const modalStyles = {
   content: {
-    top: '0',
-    left: '0',
-    right: '0',
-    bottom: '0',
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
     border: null,
-    background: 'transparent',
-    padding: '0',
+    background: "transparent",
+    padding: "0"
   },
   overlay: {
-    overflow: 'auto',
+    overflow: "auto",
     zIndex: 10, // due to tooltip
-    backgroundColor: 'rgba(0, 0, 0, 0.58)',
-  },
+    backgroundColor: "rgba(0, 0, 0, 0.58)"
+  }
 };
 
 const Container = styled(Box)`
@@ -35,69 +33,69 @@ const Container = styled(Box)`
   ${boxShadow}
 `;
 
-Modal.setAppElement('#___gatsby');
+Modal.setAppElement("#___gatsby");
 
 const expansions = [
-  'Hall Of Fame',
-  'Curse Of Naxxramas',
-  'Goblins Vs Gnomes',
-  'Blackrock Mountain',
-  'The Grand Tournament',
-  'The League Of Explorers',
-  'Whispers Of The Old Gods',
-  'One Night In Karazhan',
-  'Mean Streets Of Gadgetzan',
+  "Hall Of Fame",
+  "Curse Of Naxxramas",
+  "Goblins Vs Gnomes",
+  "Blackrock Mountain",
+  "The Grand Tournament",
+  "The League Of Explorers",
+  "Whispers Of The Old Gods",
+  "One Night In Karazhan",
+  "Mean Streets Of Gadgetzan",
   "Journey To Un'goro",
-  'Knights Of The Frozen Throne',
-  'Kobolds And Catacombs',
-  'The Witchwood',
-  'The Boomsday Project',
+  "Knights Of The Frozen Throne",
+  "Kobolds And Catacombs",
+  "The Witchwood",
+  "The Boomsday Project",
   "Rastakhan's Rumble",
-  'Rise of Shadows',
+  "Rise of Shadows"
 ];
 
 const typeColors = [
   {
-    type: 'string',
-    bg: '#9c27b0',
-    color: 'white',
-    accent: '#FFDBB5',
+    type: "string",
+    bg: "#9c27b0",
+    color: "white",
+    accent: "#FFDBB5"
   },
   {
-    type: 'number',
-    bg: '#D23B58',
-    color: 'white',
-    accent: 'black',
+    type: "number",
+    bg: "#D23B58",
+    color: "white",
+    accent: "black"
   },
   {
-    type: 'boolean',
-    bg: '#88BB92',
-    color: 'black',
-    accent: '#8B0000',
+    type: "boolean",
+    bg: "#88BB92",
+    color: "black",
+    accent: "#8B0000"
   },
   {
-    type: 'array',
-    bg: '#FFCAB1',
-    color: 'black',
-    accent: 'black',
+    type: "array",
+    bg: "#FFCAB1",
+    color: "black",
+    accent: "black"
   },
   {
-    type: 'object',
-    bg: '#22031F',
-    color: 'white',
-    accent: 'white',
-  },
+    type: "object",
+    bg: "#22031F",
+    color: "white",
+    accent: "white"
+  }
 ];
 
-const getExpansionName = (number) => {
-  if (number === 98) return 'Basic';
-  if (number === 99) return 'Classic';
+const getExpansionName = number => {
+  if (number === 98) return "Basic";
+  if (number === 99) return "Classic";
   return expansions[number];
 };
 
-const getType = value => (Array.isArray(value) ? 'array' : typeof value);
+const getType = value => (Array.isArray(value) ? "array" : typeof value);
 
-const CardDetailsModal = (props) => {
+const CardDetailsModal = props => {
   const { onRequestClose, card } = props;
   return (
     <Modal
@@ -118,7 +116,11 @@ const CardDetailsModal = (props) => {
           boxShadow="extreme"
         >
           <TopRight>
-            <Button variant="transparent" aria-label="close modal" onClick={onRequestClose}>
+            <Button
+              variant="transparent"
+              aria-label="close modal"
+              onClick={onRequestClose}
+            >
               <FaTimes size="2x" />
             </Button>
           </TopRight>
@@ -128,14 +130,14 @@ const CardDetailsModal = (props) => {
                 title={card.name}
                 alt={card.name}
                 // a 'trick' to serve the original image
-                fluid={{ ...card.image.childImageSharp.fluid, sizes: '290px' }}
-                style={{ alignSelf: 'center', width: '286px' }}
+                fluid={{ ...card.image.childImageSharp.fluid, sizes: "290px" }}
+                style={{ alignSelf: "center", width: "286px" }}
               />
               <Flex p={[2, 4]} flexDirection="column" justifyContent="center">
                 <Heading
-                  fontSize={[5, '40px']}
+                  fontSize={[5, "40px"]}
                   as="h1"
-                  textAlign={['center', 'left']}
+                  textAlign={["center", "left"]}
                   mb={5}
                   mt={[4, 0]}
                 >
@@ -166,22 +168,28 @@ const CardDetailsModal = (props) => {
             </Heading>
             <Flex py={3} mb={5} flexWrap="wrap">
               {Object.entries(card).map(([key, value]) => {
-                if (value !== null && key !== 'image') {
+                if (value !== null && key !== "image") {
                   const fieldType = getType(value);
-                  const { color, bg, accent } = typeColors.find(obj => obj.type === fieldType);
+                  const { color, bg, accent } = typeColors.find(
+                    obj => obj.type === fieldType
+                  );
                   return (
                     <Card
-                      fontSize={[1, '18px']}
+                      fontSize={[1, "18px"]}
                       key={key}
                       p={3}
                       boxShadow="large"
                       bg={bg}
                       color={color}
                       m={1}
-                      style={{ overflow: 'auto' }}
-                      order={fieldType === 'object' ? 1 : 'auto'}
+                      style={{ overflow: "auto" }}
+                      order={fieldType === "object" ? 1 : "auto"}
                     >
-                      <Heading as="h3" color={accent} style={{ textDecoration: 'underline' }}>
+                      <Heading
+                        as="h3"
+                        color={accent}
+                        style={{ textDecoration: "underline" }}
+                      >
                         {key}
                       </Heading>
                       <Text mb={2} fontSize={2}>
@@ -189,7 +197,7 @@ const CardDetailsModal = (props) => {
                         {fieldType}
                         &#41;
                       </Text>
-                      {fieldType === 'object' ? (
+                      {fieldType === "object" ? (
                         <Text as="pre">{JSON.stringify(value, null, 2)}</Text>
                       ) : (
                         <Text as="strong">{JSON.stringify(value)}</Text>
@@ -211,12 +219,12 @@ const CardDetailsModal = (props) => {
 CardDetailsModal.propTypes = {
   ...Modal.propTypes,
   card: PropTypes.shape({
-    name: PropTypes.string,
-  }),
+    name: PropTypes.string
+  })
 };
 
 CardDetailsModal.defaultProps = {
-  card: null,
+  card: null
 };
 
 export default CardDetailsModal;

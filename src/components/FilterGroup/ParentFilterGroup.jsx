@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { boxShadow } from 'styled-system';
-import { useTransition, animated } from 'react-spring';
-import Sidebar from '../react-sidebar-custom/sidebar';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { boxShadow } from "styled-system";
+import { useTransition, animated } from "react-spring";
+import Sidebar from "../react-sidebar-custom/sidebar";
 
-import OpenDeckModal from '../OpenDeckModal';
-import {
-  Button, Flex, Box, Heading, Centered,
-} from '../Primitives';
-import { FaFilter, FaTimes, FaEllipsisV } from '../Icons';
+import OpenDeckModal from "../OpenDeckModal";
+import { Button, Flex, Box, Heading, Centered } from "../Primitives";
+import { FaFilter, FaTimes, FaEllipsisV } from "../Icons";
 
-import CommonButtons from './CommonButtons';
-import CommonContent from './CommonContent';
-import Deck from '../Deck';
+import CommonButtons from "./CommonButtons";
+import CommonContent from "./CommonContent";
+import Deck from "../Deck";
 
 const Container = styled(Flex)`
   ${boxShadow}
@@ -42,7 +40,10 @@ const Overlay = styled.div`
 const AnimatedDropdown = animated(Dropdown);
 
 const ParentFilterGroup = ({
-  filterGroup, openModal, openGroupModal, allCards,
+  filterGroup,
+  openModal,
+  openGroupModal,
+  allCards
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const onSetOpen = open => setSidebarOpen(open);
@@ -52,9 +53,9 @@ const ParentFilterGroup = ({
   const [filtersVisible, setFiltersVisible] = useState(false);
 
   const parentTransitions = useTransition(filtersVisible, null, {
-    from: { transform: 'translateY(-100%)' },
-    enter: { transform: 'translateY(0)' },
-    leave: { transform: 'translateY(-110%)' },
+    from: { transform: "translateY(-100%)" },
+    enter: { transform: "translateY(0)" },
+    leave: { transform: "translateY(-110%)" }
   });
   return (
     <>
@@ -72,11 +73,17 @@ const ParentFilterGroup = ({
         />
         <Sidebar
           sidebar={
-            <Deck openModal={() => setOpenDeckModal(true)} closeSidebar={() => onSetOpen(false)} />
+            // eslint-disable-next-line react/jsx-wrap-multilines
+            <Deck
+              openModal={() => setOpenDeckModal(true)}
+              closeSidebar={() => onSetOpen(false)}
+            />
           }
           open={sidebarOpen}
           onSetOpen={onSetOpen}
-          styles={{ sidebar: { background: '#3C3C3C', position: 'fixed', zIndex: 11 } }}
+          styles={{
+            sidebar: { background: "#3C3C3C", position: "fixed", zIndex: 11 }
+          }}
         >
           <Centered alignItems="flex-start">
             <Button
@@ -105,41 +112,60 @@ const ParentFilterGroup = ({
         </Button>
       </Container>
       {parentTransitions.map(
-        ({ item, key, props }) => item && (
-        <AnimatedDropdown key={key} style={props} role="dialog">
-          <Box bg="gray" color="white" py={2} px={[2, 3]}>
-            <Flex flexWrap="wrap" my={1} px={3} alignItems="center" justifyContent="flex-end">
-              <Heading mr="auto" fontSize={[4, 5]} width={[1, 'auto']} mb={[3, 0]}>
-                {filterGroup.name}
-              </Heading>
-              <Button
-                order={1}
-                variant="paradisePink"
-                mr={3}
-                aria-label="Save or load presets"
-                data-microtip-position="bottom-left"
-                role="tooltip"
-                onClick={openGroupModal}
-              >
-                <FaEllipsisV />
-              </Button>
-              <Button
-                order={4}
-                variant="paradisePink"
-                aria-label="Close filters"
-                data-microtip-position="bottom-left"
-                role="tooltip"
-                onClick={() => setFiltersVisible(!filtersVisible)}
-              >
-                <FaTimes />
-              </Button>
-              <CommonButtons openModal={openModal} filterGroup={filterGroup} />
-            </Flex>
-            <CommonContent isParent filterGroup={filterGroup} openModal={openModal} />
-          </Box>
-          <Overlay onClick={() => setFiltersVisible(false)} />
-        </AnimatedDropdown>
-        ),
+        ({ item, key, props }) =>
+          item && (
+            <AnimatedDropdown key={key} style={props} role="dialog">
+              <Box bg="gray" color="white" py={2} px={[2, 3]}>
+                <Flex
+                  flexWrap="wrap"
+                  my={1}
+                  px={3}
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
+                  <Heading
+                    mr="auto"
+                    fontSize={[4, 5]}
+                    width={[1, "auto"]}
+                    mb={[3, 0]}
+                  >
+                    {filterGroup.name}
+                  </Heading>
+                  <Button
+                    order={1}
+                    variant="paradisePink"
+                    mr={3}
+                    aria-label="Save or load presets"
+                    data-microtip-position="bottom-left"
+                    role="tooltip"
+                    onClick={openGroupModal}
+                  >
+                    <FaEllipsisV />
+                  </Button>
+                  <Button
+                    order={4}
+                    variant="paradisePink"
+                    aria-label="Close filters"
+                    data-microtip-position="bottom-left"
+                    role="tooltip"
+                    onClick={() => setFiltersVisible(!filtersVisible)}
+                  >
+                    <FaTimes />
+                  </Button>
+                  <CommonButtons
+                    openModal={openModal}
+                    filterGroup={filterGroup}
+                  />
+                </Flex>
+                <CommonContent
+                  isParent
+                  filterGroup={filterGroup}
+                  openModal={openModal}
+                />
+              </Box>
+              <Overlay onClick={() => setFiltersVisible(false)} />
+            </AnimatedDropdown>
+          )
       )}
     </>
   );
@@ -150,10 +176,10 @@ ParentFilterGroup.propTypes = {
     name: PropTypes.string,
     type: PropTypes.string,
     operator: PropTypes.string,
-    children: PropTypes.array,
+    children: PropTypes.array
   }).isRequired,
   openModal: PropTypes.func.isRequired,
   openGroupModal: PropTypes.func.isRequired,
-  allCards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allCards: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 export default ParentFilterGroup;

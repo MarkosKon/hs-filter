@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { config } from '@fortawesome/fontawesome-svg-core';
+import React from "react";
+import PropTypes from "prop-types";
+import { config } from "@fortawesome/fontawesome-svg-core";
 
-import { Box } from '../components/Primitives';
-import SimpleNavbar from '../components/SimpleNavbar';
+import { Box } from "../components/Primitives";
+import SimpleNavbar from "../components/SimpleNavbar";
 
 // Prevent fontawesome from dynamically adding its css since
 // we do it in gatsby-browser / gatsby-ssr.
@@ -18,7 +18,7 @@ const Layout = ({ children }) => (
 );
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Layout;

@@ -1,41 +1,37 @@
-import React, {
-  useState, useContext, useRef, useMemo,
-} from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { boxShadow } from 'styled-system';
-import Modal from 'react-modal';
-import { toast } from 'react-toastify';
-import sortBy from 'lodash.sortby';
-import { FixedSizeList } from 'react-window';
-import AutoSizer from 'react-virtualized-auto-sizer';
+import React, { useState, useContext, useRef, useMemo } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { boxShadow } from "styled-system";
+import Modal from "react-modal";
+import { toast } from "react-toastify";
+import sortBy from "lodash.sortby";
+import { FixedSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
-import {
-  Flex, Box, Centered, Heading, Button, TopRight,
-} from './Primitives';
-import { replace } from '../ducks/deck';
-import { DeckContext } from '../context/deck-context';
-import { FaTrash, FaTimes } from './Icons';
-import { decode } from '../utils/enc-dec-deck';
+import { Flex, Box, Centered, Heading, Button, TopRight } from "./Primitives";
+import { replace } from "../ducks/deck";
+import { DeckContext } from "../context/deck-context";
+import { FaTrash, FaTimes } from "./Icons";
+import { decode } from "../utils/enc-dec-deck";
 
 const modalStyles = {
   content: {
-    top: '0',
-    left: '0',
-    right: '0',
-    bottom: '0',
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
     border: null,
-    background: 'transparent',
-    padding: '0',
+    background: "transparent",
+    padding: "0"
   },
   overlay: {
-    overflow: 'auto',
+    overflow: "auto",
     zIndex: 10, // due to tooltip
-    backgroundColor: 'rgba(0, 0, 0, 0.58)',
-  },
+    backgroundColor: "rgba(0, 0, 0, 0.58)"
+  }
 };
 
-Modal.setAppElement('#___gatsby');
+Modal.setAppElement("#___gatsby");
 
 const Container = styled(Box)`
   ${boxShadow}
@@ -61,19 +57,32 @@ const ItemName = styled(Button)`
   }
 `;
 
-const OpenDeckModal = (props) => {
+const OpenDeckModal = props => {
   const { onRequestClose, allCards } = props;
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const { dispatch, decks, updateDecks } = useContext(DeckContext);
   const errorToast = useRef();
   const deckLoadedToast = useRef();
 
-  const sortedDecks = useMemo(() => sortBy(decks, ['name']), [decks]);
+  const sortedDecks = useMemo(() => sortBy(decks, ["name"]), [decks]);
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <Modal {...props} style={modalStyles} closeTimeoutMS={300} contentLabel="Open a deck">
-      <Container my={4} mx={[2, 4]} py={6} px={[3, 4]} bg="gray" color="white" boxShadow="extreme">
+    <Modal
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+      style={modalStyles}
+      closeTimeoutMS={300}
+      contentLabel="Open a deck"
+    >
+      <Container
+        my={4}
+        mx={[2, 4]}
+        py={6}
+        px={[3, 4]}
+        bg="gray"
+        color="white"
+        boxShadow="extreme"
+      >
         <TopRight>
           <Button
             variant="transparent"
@@ -96,21 +105,26 @@ const OpenDeckModal = (props) => {
               <Flex
                 as="form"
                 flexWrap="wrap"
-                onSubmit={(e) => {
+                onSubmit={e => {
                   e.preventDefault();
                   try {
                     const deckFromCode = decode(allCards)(code);
                     dispatch(replace(deckFromCode));
-                    setCode('');
+                    setCode("");
                     if (!toast.isActive(deckLoadedToast.current)) {
-                      deckLoadedToast.current = toast.success('😎 Deck loaded', {
-                        autoClose: 1200,
-                      });
+                      deckLoadedToast.current = toast.success(
+                        "😎 Deck loaded",
+                        {
+                          autoClose: 1200
+                        }
+                      );
                     }
                     onRequestClose();
                   } catch (err) {
                     if (!toast.isActive(errorToast.current)) {
-                      errorToast.current = toast.error('🤔 The code is not valid.');
+                      errorToast.current = toast.error(
+                        "🤔 The code is not valid."
+                      );
                     }
                   }
                 }}
@@ -139,7 +153,11 @@ const OpenDeckModal = (props) => {
               </Heading>
               <Box
                 mb={5}
-                minHeight={sortedDecks.length * 52 > 500 ? '500px' : `${sortedDecks.length * 52}px`}
+                minHeight={
+                  sortedDecks.length * 52 > 500
+                    ? "500px"
+                    : `${sortedDecks.length * 52}px`
+                }
               >
                 {decks && decks.length > 0 ? (
                   <AutoSizer>
@@ -153,7 +171,7 @@ const OpenDeckModal = (props) => {
                         {({ index, style }) => (
                           <Item
                             key={sortedDecks[index].id}
-                            style={{ backgroundColor: '#cec7c5', ...style }}
+                            style={{ backgroundColor: "#cec7c5", ...style }}
                           >
                             <ItemName
                               variant="transparent"
@@ -164,8 +182,8 @@ const OpenDeckModal = (props) => {
                                   deckLoadedToast.current = toast.success(
                                     `😎 "${sortedDecks[index].name}" loaded`,
                                     {
-                                      autoClose: 1200,
-                                    },
+                                      autoClose: 1200
+                                    }
                                   );
                                 }
                                 onRequestClose();
@@ -178,14 +196,21 @@ const OpenDeckModal = (props) => {
                               aria-label={`delete ${sortedDecks[index].name}`}
                               data-microtip-position="left"
                               role="tooltip"
-                              style={{ display: 'block', borderRadius: '0' }}
+                              style={{ display: "block", borderRadius: "0" }}
                               p={4}
                               onClick={() => {
-                                updateDecks(decks.filter(d => d.uuid !== sortedDecks[index].uuid));
-                                toast.success(`😎 Deck "${sortedDecks[index].name}" deleted!`, {
-                                  autoClose: 2000,
-                                  position: toast.POSITION.TOP_LEFT,
-                                });
+                                updateDecks(
+                                  decks.filter(
+                                    d => d.uuid !== sortedDecks[index].uuid
+                                  )
+                                );
+                                toast.success(
+                                  `😎 Deck "${sortedDecks[index].name}" deleted!`,
+                                  {
+                                    autoClose: 2000,
+                                    position: toast.POSITION.TOP_LEFT
+                                  }
+                                );
                               }}
                             >
                               <FaTrash />
@@ -209,7 +234,7 @@ const OpenDeckModal = (props) => {
 
 OpenDeckModal.propTypes = {
   onRequestClose: PropTypes.func.isRequired,
-  allCards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  allCards: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default OpenDeckModal;

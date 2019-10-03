@@ -1,23 +1,17 @@
-import React, {
-  useContext, useState, useRef, useEffect,
-} from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import createId from 'uuid/v4';
-import copy from 'copy-to-clipboard';
-import { toast } from 'react-toastify';
+import React, { useContext, useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import createId from "uuid/v4";
+import copy from "copy-to-clipboard";
+import { toast } from "react-toastify";
 
-import { removeCard, clear, toggleIgnoreSize } from '../../ducks/deck';
-import { DeckContext } from '../../context/deck-context';
-import {
-  Flex, Box, Heading, Text, Button, TopRight,
-} from '../Primitives';
-import CardDetail from './CardDetail';
-import {
-  FaSave, FaCopy, FaBroom, FaTimes,
-} from '../Icons';
-import { encode } from '../../utils/enc-dec-deck';
-import { validateCopy } from '../../utils/deck';
+import { removeCard, clear, toggleIgnoreSize } from "../../ducks/deck";
+import { DeckContext } from "../../context/deck-context";
+import { Flex, Box, Heading, Text, Button, TopRight } from "../Primitives";
+import CardDetail from "./CardDetail";
+import { FaSave, FaCopy, FaBroom, FaTimes } from "../Icons";
+import { encode } from "../../utils/enc-dec-deck";
+import { validateCopy } from "../../utils/deck";
 
 const List = styled.ul`
   max-width: 500px;
@@ -36,10 +30,8 @@ const List = styled.ul`
 `;
 
 const Deck = ({ openModal, closeSidebar }) => {
-  const {
-    deck, dispatch, decks, updateDecks,
-  } = useContext(DeckContext);
-  const [deckName, setDeckName] = useState('');
+  const { deck, dispatch, decks, updateDecks } = useContext(DeckContext);
+  const [deckName, setDeckName] = useState("");
   const errorToast = useRef();
   const deckCopiedToast = useRef();
 
@@ -52,7 +44,11 @@ const Deck = ({ openModal, closeSidebar }) => {
   return (
     <Flex bg="#gray" color="white" flexDirection="column" minHeight="100%">
       <TopRight style={{ padding: 0 }}>
-        <Button variant="transparent" aria-label="Close sidebar" onClick={closeSidebar}>
+        <Button
+          variant="transparent"
+          aria-label="Close sidebar"
+          onClick={closeSidebar}
+        >
           <FaTimes size="2x" />
         </Button>
       </TopRight>
@@ -92,7 +88,7 @@ const Deck = ({ openModal, closeSidebar }) => {
               type="checkbox"
               ml={3}
               p={2}
-              style={{ transform: 'scale(1.5)' }}
+              style={{ transform: "scale(1.5)" }}
               value={deck.ignoreSize}
               onChange={() => dispatch(toggleIgnoreSize())}
             />
@@ -100,8 +96,8 @@ const Deck = ({ openModal, closeSidebar }) => {
         </Flex>
         <Box mb={4}>
           <Text as="small">
-            &#40;Use this if you want to save a deck with more than 30 cards. You still can&apos;t
-            copy the code though&#41;
+            &#40;Use this if you want to save a deck with more than 30 cards.
+            You still can&apos;t copy the code though&#41;
           </Text>
         </Box>
         <Flex alignItems="center" flexWrap="wrap" mb={4}>
@@ -109,10 +105,14 @@ const Deck = ({ openModal, closeSidebar }) => {
             as="form"
             flexWrap="wrap"
             mb={2}
-            onSubmit={(e) => {
+            onSubmit={e => {
               e.preventDefault();
-              updateDecks(decks.concat({ ...deck, name: deckName, uuid: createId() }));
-              toast.success(`😎 Deck "${deckName}" saved!`, { autoClose: 2500 });
+              updateDecks(
+                decks.concat({ ...deck, name: deckName, uuid: createId() })
+              );
+              toast.success(`😎 Deck "${deckName}" saved!`, {
+                autoClose: 2500
+              });
             }}
           >
             <Flex as="label" alignItems="center" flexWrap="wrap">
@@ -153,7 +153,7 @@ const Deck = ({ openModal, closeSidebar }) => {
               mb={[3, 0]}
               onClick={() => {
                 dispatch(clear());
-                setDeckName('');
+                setDeckName("");
               }}
             >
               <FaBroom />
@@ -170,7 +170,9 @@ const Deck = ({ openModal, closeSidebar }) => {
                   validateCopy(deck);
                   copy(encode(deck));
                   if (!toast.isActive(deckCopiedToast.current)) {
-                    deckCopiedToast.current = toast.success('😎 Deck copied!', { autoClose: 2500 });
+                    deckCopiedToast.current = toast.success("😎 Deck copied!", {
+                      autoClose: 2500
+                    });
                   }
                 } catch (err) {
                   if (!toast.isActive(errorToast.current)) {
@@ -215,7 +217,7 @@ const Deck = ({ openModal, closeSidebar }) => {
 
 Deck.propTypes = {
   openModal: PropTypes.func.isRequired,
-  closeSidebar: PropTypes.func.isRequired,
+  closeSidebar: PropTypes.func.isRequired
 };
 
 export default Deck;

@@ -1,18 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
+import React from "react";
+import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 
-import { useSiteMetadata } from '../hooks/useSiteMetadata';
+import { useSiteMetadata } from "../hooks/useSiteMetadata";
 
-const SEO = ({
-  title, description, image, url, keywords, lang,
-}) => {
+const SEO = ({ title, description, image, url, keywords, lang }) => {
   const {
     title: siteTitle,
     description: siteDescription,
     author,
     siteUrl,
-    logo,
+    logo
   } = useSiteMetadata();
 
   const actualTitle = title || siteTitle;
@@ -45,15 +43,15 @@ SEO.propTypes = {
   image: PropTypes.string,
   url: PropTypes.string,
   keywords: PropTypes.string,
-  lang: PropTypes.string,
+  lang: PropTypes.string
 };
 SEO.defaultProps = {
   title: null,
   description: null,
   image: null,
   url: null,
-  keywords: 'hearthstone filter collection, hearthstone deck builder',
-  lang: 'en',
+  keywords: "hearthstone filter collection, hearthstone deck builder",
+  lang: "en"
 };
 
 export default SEO;

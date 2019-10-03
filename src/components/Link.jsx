@@ -1,12 +1,18 @@
-import PropTypes from 'prop-types';
-import { Link as GatsbyLink } from 'gatsby';
-import styled from 'styled-components';
+import PropTypes from "prop-types";
+import { Link as GatsbyLink } from "gatsby";
+import styled from "styled-components";
 import {
-  color, fontSize, fontFamily, fontWeight, lineHeight, variant, space,
-} from 'styled-system';
+  color,
+  fontSize,
+  fontFamily,
+  fontWeight,
+  lineHeight,
+  variant,
+  space
+} from "styled-system";
 
 const linkStyle = variant({
-  key: 'links',
+  key: "links"
 });
 
 const Link = styled(GatsbyLink)`
@@ -31,11 +37,11 @@ Link.propTypes = {
   ...fontFamily.propTypes,
   ...fontWeight.propTypes,
   ...lineHeight.propTypes,
-  hc: PropTypes.string,
+  hc: PropTypes.string
 };
 
 Link.defaultProps = {
-  hc: null,
+  hc: null
 };
 
 export default Link;

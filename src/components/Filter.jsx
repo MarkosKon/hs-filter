@@ -1,15 +1,13 @@
-import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { boxShadow } from 'styled-system';
+import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { boxShadow } from "styled-system";
 
-import {
-  Flex, Box, Text, Button,
-} from './Primitives';
-import { FaTrash, FaEdit, FaTimes } from './Icons';
-import { update, remove } from '../ducks/live-filters';
-import { LiveFilterContext } from '../context/live-filter-context';
-import DIYFilterForm from './DIYFilterForm';
+import { Flex, Box, Text, Button } from "./Primitives";
+import { FaTrash, FaEdit, FaTimes } from "./Icons";
+import { update, remove } from "../ducks/live-filters";
+import { LiveFilterContext } from "../context/live-filter-context";
+import DIYFilterForm from "./DIYFilterForm";
 
 const Container = styled(Flex)`
   ${boxShadow}
@@ -30,7 +28,7 @@ const TextSpan = styled(Text)`
 const Filter = ({ filter }) => {
   const [editable, setEditable] = useState(false);
   const {
-    liveFilterGroup: { dispatch },
+    liveFilterGroup: { dispatch }
   } = useContext(LiveFilterContext);
 
   return (
@@ -44,7 +42,7 @@ const Filter = ({ filter }) => {
       pl={[2, 3]}
       pr={3}
     >
-      <TextContainer width={3 / 4} fontSize={[2, editable ? 3 : '24px']}>
+      <TextContainer width={3 / 4} fontSize={[2, editable ? 3 : "24px"]}>
         <Flex flexWrap="wrap">
           {editable ? (
             <Text fontWeight="normal" color="black">
@@ -52,14 +50,14 @@ const Filter = ({ filter }) => {
                 initialValues={{
                   property: filter.field,
                   operation: filter.operation,
-                  filterValue: filter.value,
+                  filterValue: filter.value
                 }}
                 handleSubmit={({ property, operation, filterValue }) => {
                   const object = {
                     ...filter,
                     field: property,
                     operation,
-                    value: filterValue,
+                    value: filterValue
                   };
                   dispatch(update({ object }));
                   setEditable(false);
@@ -85,7 +83,7 @@ const Filter = ({ filter }) => {
           )}
         </Flex>
       </TextContainer>
-      <Box width={1 / 4} style={{ textAlign: 'right' }}>
+      <Box width={1 / 4} style={{ textAlign: "right" }}>
         {editable ? (
           <Button
             variant="purple"
@@ -129,8 +127,12 @@ Filter.propTypes = {
     type: PropTypes.string,
     field: PropTypes.string,
     operation: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  }).isRequired,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool
+    ])
+  }).isRequired
 };
 
 export default Filter;

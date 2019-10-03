@@ -1,14 +1,27 @@
 {
-  "extends": "airbnb",
   "env": {
     "browser": true,
+    "es6": true,
     "node": true
   },
-  "plugins": ["react-hooks"],
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "react-hooks"],
   "rules": {
     "import/prefer-default-export": 0,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }]
+    "arrow-body-style": "off",
+    "arrow-parens": ["error", "as-needed"]
   }
 }

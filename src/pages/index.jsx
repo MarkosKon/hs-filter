@@ -1,11 +1,9 @@
-import React, {
-  useState, useEffect, useContext, useRef, useMemo,
-} from 'react';
-import { graphql } from 'gatsby';
-import PropTypes from 'prop-types';
-import sortBy from 'lodash.sortby';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect, useContext, useRef, useMemo } from "react";
+import { graphql } from "gatsby";
+import PropTypes from "prop-types";
+import sortBy from "lodash.sortby";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   initializeOperationsG,
@@ -23,56 +21,61 @@ import {
   isEven,
   isOdd,
   isNull,
-  isNotNull,
-} from 'compare-object-field';
-import AddModal from '../components/AddModal';
-import SaveLoadPresetModal from '../components/SaveLoadPresetModal';
-import { ParentFilterGroup } from '../components/FilterGroup';
-import Cards from '../components/Cards';
-import Layout from '../layouts/Layout';
-import SEO from '../components/SEO';
-import { LiveFilterContext } from '../context/live-filter-context';
+  isNotNull
+} from "compare-object-field";
+import AddModal from "../components/AddModal";
+import SaveLoadPresetModal from "../components/SaveLoadPresetModal";
+import { ParentFilterGroup } from "../components/FilterGroup";
+import Cards from "../components/Cards";
+import Layout from "../layouts/Layout";
+import SEO from "../components/SEO";
+import { LiveFilterContext } from "../context/live-filter-context";
 // import Debug from "../components/Debug";
 
 const operations = {
   equals,
-  'not equals': notEquals,
-  'greater than': greaterThan,
-  'less than': lessThan,
+  "not equals": notEquals,
+  "greater than": greaterThan,
+  "less than": lessThan,
   includes,
-  'not includes': notIncludes,
-  'is included in': isIncludedIn,
-  'not included in': notIncludedIn,
+  "not includes": notIncludes,
+  "is included in": isIncludedIn,
+  "not included in": notIncludedIn,
   match,
-  'not match': notMatch,
-  'match case-sensitive': matchCaseSensitive,
-  'is even': isEven,
-  'is odd': isOdd,
-  'is null': isNull,
-  'is not null': isNotNull,
+  "not match": notMatch,
+  "match case-sensitive": matchCaseSensitive,
+  "is even": isEven,
+  "is odd": isOdd,
+  "is null": isNull,
+  "is not null": isNotNull
 };
 const addFilterGroup = initializeOperationsG(operations);
 const getCards = ({ cards, liveFilterGroup }) => {
   const satisfiesFilterGroup = addFilterGroup(liveFilterGroup);
   const result = cards.filter(satisfiesFilterGroup);
-  return sortBy(result, ['cost', 'name']);
+  return sortBy(result, ["cost", "name"]);
 };
 
 const AppPage = ({ data }) => {
   const {
-    liveFilterGroup: { liveFilterGroup },
+    liveFilterGroup: { liveFilterGroup }
   } = useContext(LiveFilterContext);
 
   const cards = useMemo(() => {
     const expansions = data.allCardsJson.edges;
-    return expansions.reduce((allCards, ex) => allCards.concat(ex.node.cards), []);
+    return expansions.reduce(
+      (allCards, ex) => allCards.concat(ex.node.cards),
+      []
+    );
   }, [data.allCardsJson.edges]);
 
   // QUESTION: Why we get an unhandled exception (the try block is skipped (useEffect),
   // and the state re-initializes) if we try an incorrect DIY filter like
   // cardClass match whatever and we don't initialize lazily the state?
   // e.g. const [filteredCards, setFilteredCards] = useState(getCards({ cards, liveFilterGroup }));
-  const [filteredCards, setFilteredCards] = useState(() => getCards({ cards, liveFilterGroup }));
+  const [filteredCards, setFilteredCards] = useState(() =>
+    getCards({ cards, liveFilterGroup })
+  );
 
   const errorToast = useRef();
 
@@ -87,7 +90,7 @@ const AppPage = ({ data }) => {
     } catch (err) {
       if (!toast.isActive(errorToast.current)) {
         errorToast.current = toast.error(
-          `🔥 This is not supported, try something different. ${err.toString()}`,
+          `🔥 This is not supported, try something different. ${err.toString()}`
         );
       }
     }
@@ -101,7 +104,7 @@ const AppPage = ({ data }) => {
       <ParentFilterGroup
         allCards={cards}
         filterGroup={liveFilterGroup}
-        openModal={(initiator) => {
+        openModal={initiator => {
           setModalInitiator(initiator);
           setAddModalOpen(true);
         }}
@@ -124,8 +127,8 @@ const AppPage = ({ data }) => {
 
 AppPage.propTypes = {
   data: PropTypes.shape({
-    allCardsJson: PropTypes.object.isRequired,
-  }).isRequired,
+    allCardsJson: PropTypes.object.isRequired
+  }).isRequired
 };
 
 export const query = graphql`
