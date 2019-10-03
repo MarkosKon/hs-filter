@@ -1,15 +1,15 @@
-const path = require('path');
-const { createFilePath } = require('gatsby-source-filesystem');
+const path = require("path");
+const { createFilePath } = require("gatsby-source-filesystem");
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === 'MarkdownRemark') {
+  if (node.internal.type === "MarkdownRemark") {
     const value = createFilePath({ node, getNode });
     createNodeField({
-      name: 'slug',
+      name: "slug",
       node,
-      value,
+      value
     });
   }
 };
@@ -29,20 +29,20 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
-    `,
-  ).then((result) => {
+    `
+  ).then(result => {
     if (result.errors) throw result.errors;
 
-    const template = path.resolve('./src/templates/MarkdownPage.jsx');
+    const template = path.resolve("./src/templates/MarkdownPage.jsx");
     const markdownPages = result.data.allMarkdownRemark.edges;
 
-    markdownPages.forEach((markdownPage) => {
+    markdownPages.forEach(markdownPage => {
       createPage({
         path: markdownPage.node.fields.slug,
         component: template,
         context: {
-          slug: markdownPage.node.fields.slug,
-        },
+          slug: markdownPage.node.fields.slug
+        }
       });
     });
 

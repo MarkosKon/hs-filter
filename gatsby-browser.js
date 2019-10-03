@@ -1,1 +1,1 @@
-export { wrapRootElement } from './common';
+export { wrapRootElement } from "./common";
