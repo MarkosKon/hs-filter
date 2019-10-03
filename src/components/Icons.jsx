@@ -6,23 +6,9 @@ import styled from 'styled-components';
 import { space } from 'styled-system';
 import { FontAwesomeIcon as Base } from '@fortawesome/react-fontawesome';
 import {
-  faFacebookF,
-  faGooglePlus,
-  faLinkedin,
-  faSkype,
-  faTwitter,
-  faInstagram,
-} from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import {
-  faHeart,
-  faLink,
-  faBars,
   faTimes,
   faPlus,
   faTrash,
-  faCode,
-  faToggleOn,
   faFilter,
   faSyncAlt,
   faEdit,
@@ -39,21 +25,9 @@ const FontAwesomeIcon = styled(Base)`
   ${space}
 `;
 
-const Facebook = props => <FontAwesomeIcon {...props} icon={faFacebookF} />;
-const GooglePlus = props => <FontAwesomeIcon {...props} icon={faGooglePlus} />;
-const Linkedin = props => <FontAwesomeIcon {...props} icon={faLinkedin} />;
-const Skype = props => <FontAwesomeIcon {...props} icon={faSkype} />;
-const Twitter = props => <FontAwesomeIcon {...props} icon={faTwitter} />;
-const Instagram = props => <FontAwesomeIcon {...props} icon={faInstagram} />;
-const Envelope = props => <FontAwesomeIcon {...props} icon={faEnvelope} />;
-const Heart = props => <FontAwesomeIcon {...props} icon={faHeart} />;
-const FaLink = props => <FontAwesomeIcon {...props} icon={faLink} />;
-const FaBars = props => <FontAwesomeIcon {...props} icon={faBars} />;
 const FaTimes = props => <FontAwesomeIcon {...props} icon={faTimes} />;
 const FaPlus = props => <FontAwesomeIcon {...props} icon={faPlus} />;
 const FaTrash = props => <FontAwesomeIcon {...props} icon={faTrash} />;
-const FaCode = props => <FontAwesomeIcon {...props} icon={faCode} />;
-const FaToggleOn = props => <FontAwesomeIcon {...props} icon={faToggleOn} />;
 const FaFilter = props => <FontAwesomeIcon {...props} icon={faFilter} />;
 const FaSync = props => <FontAwesomeIcon {...props} icon={faSyncAlt} />;
 const FaEdit = props => <FontAwesomeIcon {...props} icon={faEdit} />;
@@ -66,21 +40,9 @@ const FaSearch = props => <FontAwesomeIcon {...props} icon={faSearch} />;
 const FaMinus = props => <FontAwesomeIcon {...props} icon={faMinus} />;
 
 export {
-  Facebook,
-  GooglePlus,
-  Linkedin,
-  Skype,
-  Twitter,
-  Instagram,
-  Envelope,
-  Heart,
-  FaLink,
-  FaBars,
   FaTimes,
   FaPlus,
   FaTrash,
-  FaCode,
-  FaToggleOn,
   FaFilter,
   FaSync,
   FaEdit,
