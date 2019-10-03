@@ -31,6 +31,10 @@
     "*.{js,jsx}": [
       "eslint --fix",
       "git add"
+    ],
+    "*.{css,json,svg,md}": [
+      "prettier --write",
+      "git add"
     ]
   },
   "dependencies": {
