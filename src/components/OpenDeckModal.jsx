@@ -71,6 +71,7 @@ const OpenDeckModal = (props) => {
   const sortedDecks = useMemo(() => sortBy(decks, ['name']), [decks]);
 
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <Modal {...props} style={modalStyles} closeTimeoutMS={300} contentLabel="Open a deck">
       <Container my={4} mx={[2, 4]} py={6} px={[3, 4]} bg="gray" color="white" boxShadow="extreme">
         <TopRight>

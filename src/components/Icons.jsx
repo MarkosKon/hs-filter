@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // This is not necessary, we could use the library from core
 // https://github.com/FortAwesome/react-fontawesome#build-a-library-to-reference-icons-throughout-your-app-more-conveniently
 

@@ -78,6 +78,7 @@ const SaveLoadPresetModal = (props) => {
 
   return (
     <Modal
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       style={modalStyles}
       closeTimeoutMS={300}
