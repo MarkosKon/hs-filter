@@ -16,8 +16,6 @@
     "test:e2e": "start-server-and-test develop http://localhost:8000 cy:open",
     "test:e2e:ci": "start-server-and-test develop http://localhost:8000 cy:run",
     "cy:open": "cypress open",
-    "storybook": "start-storybook -s ./public -p 6006",
-    "build-storybook": "build-storybook",
     "deploy": "netlify deploy --dir=public",
     "deploy:prod": "netlify deploy --dir=public --prod"
   },
@@ -101,14 +99,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@storybook/addon-actions": "^4.1.11",
-    "@storybook/addon-info": "^4.1.11",
-    "@storybook/addon-links": "^4.1.11",
-    "@storybook/addons": "^4.1.11",
-    "@storybook/react": "^4.1.11",
     "axe-core": "^3.2.2",
-    "babel-loader": "^8.0.5",
     "cypress": "^3.2.0",
     "cypress-axe": "^0.4.1",
     "cypress-testing-library": "^3.0.1",
@@ -126,9 +117,6 @@
     "prettier-eslint-cli": "^4.7.1",
     "start-server-and-test": "^1.9.0"
   },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
