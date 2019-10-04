@@ -3,7 +3,7 @@ const pkg = require("./package");
 const gray = "#424242";
 const raisinBlack = "#2C1320";
 const paradisePink = "#d23b58";
-const title = "HSFilter";
+const title = "HSFilter - Hearthstone deck builder";
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 require("dotenv").config({

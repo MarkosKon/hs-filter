@@ -1,7 +1,7 @@
 {
   "name": "hs-filter",
   "private": true,
-  "description": "The most advanced Hearthstone tool for filtering your collection. Supports completely custom filters and includes a deck builder.",
+  "description": "HSFilter is a Hearthstone deck builder that gives emphasis on filtering. Add custom filters (they can be anything, you create them) to limit the collection, build decks and save them in your browser—and yes, you can save more than 18 decks. Finally, you can import decks from anywhere if you have a code, and then export them by code.",
   "author": "Markos Konstantopoulos <markoskonstanto@hotmail.com>",
   "version": "0.1.0",
   "scripts": {
